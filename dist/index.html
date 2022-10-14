@@ -15,6 +15,51 @@
     <script src="bundle.js" defer></script>
   </head>
   <body>
+    <div id="mySidenav" class="sidenav">
+      <p class="list-desc">Tasks</p>
+      <div class="divider"></div>
+      <ul>
+        <li><a href="#" class="list-link">Today</a></li>
+        <li><a href="#" class="list-link">Tomorrow</a></li>
+        <li><a href="#" class="list-link">Next month</a></li>
+        <li><a href="#" class="list-link">All tasks</a></li>
+      </ul>
+      <p class="list-desc">Projects</p>
+      <div class="divider"></div>
+      <ul>
+        <li><a href="#" class="list-link">+ Add New Project</a></li>
+      </ul>
+    </div>
+
     <header><h1 class="logo">&lt/&gtTODOAPP.js&lt/&gt</h1></header>
+
+    <main>
+      <div class="task-list">
+
+        <div class="task-list-header">
+          <h2 class="task-list-title">Your tasks</h2>
+          <button class="task-btn" id="add-task">+Add Task</button>
+        </div>
+
+        <div class="task">
+          <div class="left-side">
+            <button class="task-btn" id="task-done">
+              <img src="./images/checkmark-svgrepo-com.svg" alt="done"/>
+            </button>
+            <div class="task-divider"></div>
+            <p class="task-title">My first test task</p>
+          </div>
+
+          <div class="right-side">
+            <div class="task-divider"></div>
+            <p class="due-title">Due:</p>
+            <input type="date" name="due-date" id="due-date" />
+            <button class="task-btn">
+              <img src="./images/trash-svgrepo-com.svg" alt="Delete" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
   </body>
 </html>

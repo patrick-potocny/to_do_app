@@ -75,17 +75,54 @@ select {
 
 /* CSS PROPERTIES */
 :root {
-  --ff-main: 'Nunito', sans-serif;
+  --ff-main: "Nunito", sans-serif;
   --clr-prim: hsla(254, 100%, 58%, 1);
   --clr-bg: hsla(279, 98%, 65%, 1);
   --clr-text: hsl(318, 68%, 11%);
+  --clr-card: hsla(0, 0%, 0%, 0.2);
+  --clr-hover: hsla(0, 100%, 100%, 0.2);
 }
 
 /* GENEREAL CSS */
+ul {
+  list-style: none;
+}
+
+li > a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  margin: 0 auto;
+}
 
 /* TYPOGRAPHY */
 h1 {
   font-size: 3rem;
+}
+
+.list-desc {
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.list-link {
+  font-size: 1.4rem;
+}
+
+.task-list-title {
+  font-size: 3rem;
+}
+
+.task-title, .due-title {
+  font-size: 1.5rem;
+}
+
+#add-task {
+  font-size: 1.3rem;
+  font-weight: 700;
 }
 
 /* MAIN CSS */
@@ -102,3 +139,120 @@ header {
   justify-content: space-around;
 }
 
+/* The side navigation menu */
+.sidenav {
+  height: 100%;
+  width: 19rem;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: var(--clr-card);
+  overflow-x: hidden;
+  padding-left: 3rem;
+}
+
+.list-desc {
+  margin-top: 5rem;
+}
+
+.divider {
+  height: 1px;
+  background-color: var(--clr-text);
+}
+
+.list-link {
+  transition: 150ms ease-in;
+  border-radius: 5px;
+}
+
+.list-link:hover {
+  background-color: var(--clr-hover);
+  transform: translateX(1rem);
+}
+
+/* MAIN */
+main {
+  margin-left: 19rem;
+  height: 90vh; 
+  padding: 3rem;
+}
+
+.task-list{
+  background-color: var(--clr-card);
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  overflow: auto;
+}
+
+.task-list-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+#add-task {
+  width: 10rem;
+}
+
+.task-list-title {
+  text-align: center;
+}
+
+.task{ 
+  margin: 1rem 0;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--clr-hover);
+}
+
+.task-done {
+  width: 2rem;
+  height: 2rem;
+
+}
+
+.task-btn {
+  width: 3rem;
+  padding: 0.4rem;
+  background-color: var(--clr-bg);
+  border: 2px solid var(--clr-text);
+  border-radius: 1rem;
+  margin-left: 1rem;
+}
+
+#due-date {
+  margin-left: 0.5rem;
+  font-size: 1.4rem;
+  background-color: var(--clr-bg);
+  border: 2px solid var(--clr-text);
+  border-radius: 1rem;
+}
+
+.task-divider {
+  width: 2px;
+  height: 100%;
+  background-color: var(--clr-text);
+  margin-inline: 0.5rem;
+}
+
+.left-side {
+  display: flex;
+  align-items: center;
+}
+
+.right-side {
+  display: flex;
+  align-items: center;
+}
+
+.task-btn:hover {
+  background-color: var(--clr-hover);
+  cursor: pointer;
+}
+
+#task-done {
+  margin: 0;
+}
