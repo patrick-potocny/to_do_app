@@ -19,15 +19,14 @@
       <p class="list-desc">Tasks</p>
       <div class="divider"></div>
       <ul>
-        <li><a href="#" class="list-link">Today</a></li>
-        <li><a href="#" class="list-link">Tomorrow</a></li>
-        <li><a href="#" class="list-link">Next month</a></li>
-        <li><a href="#" class="list-link">All tasks</a></li>
+        <li><a href="#" class="list-link" id="today-link">Today</a></li>
+        <li><a href="#" class="list-link" id="tomorrow-link">Tomorrow</a></li>
+        <li><a href="#" class="list-link" id="week-link">This week</a></li>
+        <li><a href="#" class="list-link" id="all-link">All tasks</a></li>
       </ul>
       <p class="list-desc">Projects</p>
       <div class="divider"></div>
-      <ul>
-        <li><a href="#" class="list-link">+ Add New Project</a></li>
+      <ul id="projects-list">
       </ul>
     </div>
 
@@ -51,6 +50,8 @@
           </div>
 
           <div class="right-side">
+            <div class="task-divider"></div>
+            <p class="project-name">Project 1</p>
             <div class="task-divider"></div>
             <p class="due-title">Due:</p>
             <input type="date" name="due-date" id="due-date" />
