@@ -116,13 +116,17 @@ h1 {
   font-size: 3rem;
 }
 
-.task-title, .due-title {
+.task-title{
   font-size: 1.5rem;
 }
 
 #add-task {
   font-size: 1.3rem;
   font-weight: 700;
+}
+
+.project-name {
+  font-size: 1.5rem;
 }
 
 /* MAIN CSS */
@@ -211,7 +215,6 @@ main {
 .task-done {
   width: 2rem;
   height: 2rem;
-
 }
 
 .task-btn {
@@ -223,12 +226,9 @@ main {
   margin-left: 1rem;
 }
 
-#due-date {
+.due-date {
   margin-left: 0.5rem;
   font-size: 1.4rem;
-  background-color: var(--clr-bg);
-  border: 2px solid var(--clr-text);
-  border-radius: 1rem;
 }
 
 .task-divider {
@@ -255,4 +255,26 @@ main {
 
 #task-done {
   margin: 0;
+}
+
+.task-input {
+  height: 100%;
+  font-size: 1.3rem;
+  background-color: var(--clr-bg);
+  border: 2px solid var(--clr-text);
+  border-radius: 1rem;
+}
+
+.task-confirm {
+  background-color: green;
+  height: 3rem;
+}
+
+.task-cancel {
+  background-color: red;
+  height: 3rem;
+}
+
+.task-focus {
+  border: 2px solid var(--clr-text);
 }
