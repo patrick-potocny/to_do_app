@@ -129,6 +129,11 @@ h1 {
   font-size: 1.5rem;
 }
 
+.project-del {
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
 /* MAIN CSS */
 body {
   font-family: var(--ff-main);
@@ -170,7 +175,7 @@ header {
   border-radius: 5px;
 }
 
-.list-link:hover {
+.list-link:hover, .list-link-active {
   background-color: var(--clr-hover);
   transform: translateX(1rem);
 }
@@ -277,4 +282,14 @@ main {
 
 .task-focus {
   border: 2px solid var(--clr-text);
+}
+
+#del-project {
+  width: 1rem;
+  display: inline;
+}
+
+.project-del {
+  width: 15rem;
+  background-color: red;
 }

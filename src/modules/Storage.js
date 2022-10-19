@@ -2,8 +2,8 @@ export default class Storage {
   static initStorage() {
     const currentProjects = localStorage.getItem("projects");
     if (currentProjects == null) {
-      localStorage.setItem("projects", JSON.stringify([]));
-      localStorage.setItem("tasks", JSON.stringify([]));
+      this.updateProjects([]);
+      this.updateTasks([])
     }
   }
 
@@ -16,13 +16,17 @@ export default class Storage {
   static addProject(projectName) {
     const currentProjectsList = this.getProjectslist();
     currentProjectsList.push(projectName);
-    localStorage.setItem("projects", JSON.stringify(currentProjectsList));
+    this.updateProjects(currentProjectsList);
   }
 
   static removeProject(projectName) {
     const currentProjectsList = this.getProjectslist();
     currentProjectsList.splice(currentProjectsList.indexOf(projectName), 1);
-    localStorage.setItem("projects", JSON.stringify(currentProjectsList));
+    this.updateProjects(currentProjectsList);
+  }
+
+  static updateProjects(list){
+    localStorage.setItem("projects", JSON.stringify(list));
   }
 
   static getTasksList() {
@@ -35,6 +39,11 @@ export default class Storage {
     const currentTasksList = this.getTasksList()
     const task = JSON.stringify(taskObj)
     currentTasksList.push(task)
-    localStorage.setItem('tasks', JSON.stringify(currentTasksList))
+    this.updateTasks(currentTasksList)
   }
+
+  static updateTasks(list){
+    localStorage.setItem("tasks", JSON.stringify(list));
+  }
+
 }
