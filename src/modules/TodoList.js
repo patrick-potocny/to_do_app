@@ -33,8 +33,6 @@ export default class TodoList {
       task = JSON.parse(task);
       const taskDate = new Date(task.dueDate).setHours(0,0,0,0);
 
-      console.log(todayDate);
-      console.log(taskDate);
       if (compareAsc(taskDate, todayDate) < 1) {
         filteredTasks.push(task);
       }
