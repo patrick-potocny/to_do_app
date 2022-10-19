@@ -32,7 +32,8 @@ export default class Ui {
       // Put in "Ui.load...." bcs this. didnt work and idk why
       Ui.loadProjects();
       Ui.loadTasks(projectName);
-      Ui.addProjectDelBtn()
+      Ui.addProjectDelBtn();
+      Ui.addProjectDelBtn();
       Ui.removeActiveLink();
     }
   }
@@ -81,7 +82,7 @@ export default class Ui {
                 new Date(task.dueDate),
                 "d/M/y"
               )}</p>
-              <button class="task-btn">
+              <button class="task-btn task-edit">
                 <img src="./images/pencil-svgrepo-com.svg" alt="Delete" />
               </button>
               <button class="task-btn task-delete">
@@ -119,18 +120,19 @@ export default class Ui {
                       Delete Project
                     </button>
                     <button class="task-btn" id="add-task">+Add Task</button>`;
-    addTaskDiv.innerHTML = newHtml
-    const delBtn = document.getElementsByClassName('project-del')[0]
-    delBtn.addEventListener('click', function () {
-      if (confirm('Do you want to delete this project and all it`s tasks?')){
-        const currentProject = document.getElementById("current-category").innerText
-        TodoList.removeProject(currentProject)
-        Ui.loadUI()
-        delBtn.remove()
+    addTaskDiv.innerHTML = newHtml;
+    const delBtn = document.getElementsByClassName("project-del")[0];
+    delBtn.addEventListener("click", function () {
+      if (confirm("Do you want to delete this project and all it`s tasks?")) {
+        const currentProject =
+          document.getElementById("current-category").innerText;
+        TodoList.removeProject(currentProject);
+        Ui.loadUI();
+        delBtn.remove();
       }
-    })
+    });
 
-    Ui.addTaskButtons()
+    Ui.addTaskButtons();
   }
 
   static removeActiveLink() {
@@ -150,6 +152,20 @@ export default class Ui {
         Ui.loadTasks(document.getElementById("current-category").innerText);
       });
     }
+
+    const editTaskBtns = document.getElementsByClassName("task-edit");
+    for (const btn of editTaskBtns) {
+      btn.addEventListener("click", function () {
+        Ui.editTask(btn);
+      });
+    }
+  }
+
+  static editTask(btn) {
+    const taskData = Ui.getTaskData(btn);
+    TodoList.removeTask(taskData);
+    btn.parentElement.parentElement.remove();
+    Ui.addTaskPopup(taskData)
   }
 
   static getTaskData(btn) {
@@ -167,10 +183,17 @@ export default class Ui {
     return [taskName, taskProject, formatedDueDate];
   }
 
-  static addTaskPopup() {
+  static addTaskPopup(taskData) {
     // check if addTasks popup exists
     if (document.getElementsByClassName("task-focus")[0]) {
       return;
+    }
+
+    let taskName = '';
+    let taskProject = false;
+    let formatedDueDate = '';
+    if (Symbol.iterator in Object(taskData)) {
+      [taskName, taskProject, formatedDueDate] = taskData;
     }
 
     let tasksList = document.getElementById("tasks-list");
@@ -178,7 +201,7 @@ export default class Ui {
     const popup = `
     <div class="task task-focus">
     <div class="left-side">
-      <input class="task-input" type="text" name="task-name" id="task-name" maxlength="50"/>
+      <input value="${taskName}" class="task-input" type="text" name="task-name" id="task-name" maxlength="50"/>
     </div>
     <div class="right-side">
       <div class="task-divider"></div>
@@ -186,7 +209,7 @@ export default class Ui {
         <option value="No Project">No Project</option>
       </select>
       <div class="task-divider"></div>
-      <input class="task-input" type="date" name="due-date" id="due-date" />
+      <input class="task-input" type="date" name="due-date" id="due-date" value="${formatedDueDate}"/>
       <button class="task-btn task-confirm" id="task-confirm">
         <img src="./images/checkmark-svgrepo-com.svg" alt="Add" />
       </button>
@@ -197,25 +220,29 @@ export default class Ui {
     </div>`;
     tasksList.innerHTML = popup + tasksListHtml;
 
-    Ui.updateDropdown();
+    Ui.updateDropdown(taskProject);
 
     const taskConfirm = document.getElementById("task-confirm");
     const taskCancel = document.getElementById("task-cancel");
-    taskConfirm.addEventListener("click", Ui.addTask);
-    taskCancel.addEventListener(
-      "click",
-      () => (tasksList.innerHTML = tasksListHtml)
-    );
+    taskConfirm.addEventListener("click", () => Ui.addTask());
+    taskCancel.addEventListener("click", function () {
+      if (taskName != ''){
+        Ui.addTask(taskName, taskProject, formatedDueDate)
+      }
+      Ui.loadTasks(document.getElementById('current-category').innerText)
+    });
 
     document.getElementById("task-name").focus();
   }
 
-  static addTask() {
-    const name = document.getElementById("task-name").value;
-    const projectName = document.getElementById("task-project").value;
-    let dueDate = document.getElementById("due-date").value;
+  static addTask(taskName=false, projectName=false, dueDate=false) {
+    if (taskName == false){
+      taskName = document.getElementById("task-name").value;
+      projectName = document.getElementById("task-project").value;
+      dueDate = document.getElementById("due-date").value;
+    }
 
-    if (name === "") {
+    if (taskName === "") {
       alert("Task cannot be empty");
       return;
     }
@@ -225,7 +252,7 @@ export default class Ui {
       return;
     }
 
-    const task = new Task(name, projectName, dueDate);
+    const task = new Task(taskName, projectName, dueDate);
     Storage.addTask(task);
     document.getElementsByClassName("task-focus")[0].remove();
 
@@ -233,7 +260,7 @@ export default class Ui {
     Ui.loadTasks(currentCat);
   }
 
-  static updateDropdown() {
+  static updateDropdown(projectName) {
     // add current projects to dropdown
     const projectsList = Storage.getProjectslist();
     const taskSelect = document.getElementById("task-project");
@@ -241,6 +268,7 @@ export default class Ui {
       const option = document.createElement("option");
       option.value = projectsList[i];
       option.innerText = projectsList[i];
+      if (projectName === projectsList[i]) option.setAttribute('selected', true)
       taskSelect.appendChild(option);
     }
   }

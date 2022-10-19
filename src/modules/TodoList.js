@@ -31,8 +31,10 @@ export default class TodoList {
 
     for (let task of allTasks) {
       task = JSON.parse(task);
-      const taskDate = new Date(task.dueDate);
+      const taskDate = new Date(task.dueDate).setHours(0,0,0,0);
 
+      console.log(todayDate);
+      console.log(taskDate);
       if (compareAsc(taskDate, todayDate) < 1) {
         filteredTasks.push(task);
       }
@@ -116,11 +118,8 @@ export default class TodoList {
   }
 
   static removeProject(projectName) {
-    console.log(projectName);
     const allProjects = Storage.getProjectslist()
     const allTasks = Storage.getTasksList()
-    console.log(allProjects);
-    console.log(allTasks);
 
     for (const i in allProjects) {
       const project = allProjects[i]
